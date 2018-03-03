@@ -2,7 +2,7 @@
   "company": "ouroboros",
   "namespace": "product",
   "project": "skeleton",
-  "pythonversion": 3.6,
+  "pythonversion": 2.7,
   "username": "dummyuser",
   "email": "dummyuser@bla",
   "year": "",

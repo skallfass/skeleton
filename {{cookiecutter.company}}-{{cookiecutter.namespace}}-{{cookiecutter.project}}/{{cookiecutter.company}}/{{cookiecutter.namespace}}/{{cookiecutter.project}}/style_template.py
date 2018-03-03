@@ -31,7 +31,7 @@ Attributes
 import argparse
 from datetime import datetime as dt
 import logging
-from pathlib import Path
+import os
 import sys
 
 # third-party imports
@@ -62,17 +62,19 @@ def build_logging():
     Customizes logging for this module.
     """
     # TODO: more detailed docstring
-    logging.basicConfig(level=logging.DEBUG, stream=sys.stdout,
+    logger = logging.getLogger(__name__)
+    logger.basicConfig(level=logging.DEBUG, stream=sys.stdout,
                         format=' %(levelname)s %(message)s')
-    logging.addLevelName(logging.DEBUG, f'{BOLD}d{NCOLOR}')
-    logging.addLevelName(logging.INFO, f'{BOLD}I{NCOLOR}')
-    logging.addLevelName(logging.ERROR, f"{RED}E{NCOLOR}")
-    logging.addLevelName(logging.CRITICAL, f"{RED}C{NCOLOR}")
+    logger.addLevelName(logging.DEBUG, '{}d{}'.format(GREEN, NCOLOR))
+    logger.addLevelName(logging.INFO, '{}I{}'.format(GREEN, NCOLOR))
+    logger.addLevelName(logging.ERROR, '{}E{}'.format(RED, NCOLOR))
+    logger.addLevelName(logging.CRITICAL, '{}C{}'.format(RED, NCOLOR))
+    return logger
 
 
 
 # =============================================================================
-class ExampleClass:
+class ExampleClass(object):
     """
     Docstring describing the ExampleClass.
 
@@ -135,7 +137,7 @@ def main():
     functions can be expressed like this: :class:`ExampleClass` or
     :func:`ExampleClass.example_method` or :func:`main` .
     """
-    build_logging()
+    logger = build_logging()
     options = build_arguments(sys.argv[1:])
 
 

@@ -12,7 +12,7 @@ def main():
     setup(
         name="{{cookiecutter.company}}-{{cookiecutter.namespace}}-{{cookiecutter.project}}",
         version=(subprocess.check_output(['git', 'describe', '--tag'])
-                 .strip().decode('ascii').replace('-', '_')),
+                 .strip().replace('-', '_')),
         packages=find_packages(),
         zip_safe=False)
 
