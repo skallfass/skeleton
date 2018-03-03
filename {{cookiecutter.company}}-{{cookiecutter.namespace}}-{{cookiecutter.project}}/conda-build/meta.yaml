@@ -1,0 +1,35 @@
+{% raw -%}{% set data = load_setup_py_data() %}{%- endraw %}
+
+package:
+    name: {{cookiecutter.company}}-{{cookiecutter.namespace}}-{{cookiecutter.project}}
+    version: {% raw -%}{{ data.get("version") }}{%- endraw %}
+
+source:
+    path: ..
+
+build:
+    build: {% raw -%}{{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}{%- endraw %}
+    preserve_egg_dir: True
+    script: python setup.py install
+    #entry_points:
+    #  - yourcommand = {{cookiecutter.company}}.{{cookiecutter.namespace}}.{{cookiecutter.project}}.PLACE_YOUR_CODE_HERE:main
+
+requirements:
+    build:
+      - python {{cookiecutter.pythonversion}}*
+      - setuptools
+    run:
+      - python {{cookiecutter.pythonversion}}*
+      - pytest
+      - ipython
+      - pylint
+
+test:
+    imports:
+        - {{cookiecutter.company}}.{{cookiecutter.namespace}}.{{cookiecutter.project}}
+    #commands:
+    #    - yourcommand --help
+
+extra:
+    maintainer: {{cookiecutter.username}}
+    pythonversion: {{cookiecutter.pythonversion}}
